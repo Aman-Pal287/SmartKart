@@ -11,6 +11,7 @@ function jestTestSetup() {
 
     // process.env.MONGO_URL = uri;
     process.env.JWT_SECRET = "test_jwt_secret";
+    process.env.NODE_ENV = "test"; // Test environment set karo
 
     await mongoose.connect(uri);
   });
@@ -18,6 +19,12 @@ function jestTestSetup() {
   afterAll(async () => {
     await mongoose.disconnect();
     await mongoServer.stop();
+
+    // Redis connection close karo agar exists toh
+    const redis = require("../src/db/redis");
+    if (redis.quit) {
+      await redis.quit();
+    }
   });
 
   afterEach(async () => {
