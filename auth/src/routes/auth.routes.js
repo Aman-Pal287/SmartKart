@@ -27,4 +27,24 @@ router.get("/me", authMiddleware.authMiddleware, authController.getCurrentUser);
 //GET /api/auth/logout
 router.get("/logout", authController.logoutUser);
 
+router.get(
+  "/me/addresses",
+  authMiddleware.authMiddleware,
+  authController.getUserAddress
+);
+
+router.post(
+  "/me/addresses",
+  validator.loginUserValidations,
+  validator.addUserAddressValidations,
+  authMiddleware.authMiddleware,
+  authController.addUserAddress
+);
+
+router.delete(
+  "/me/addresses/:addressId",
+  authMiddleware.authMiddleware,
+  authController.deleteUserAddress
+);
+
 module.exports = router;
