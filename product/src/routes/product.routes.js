@@ -22,10 +22,14 @@ router.post(
 /* GET /api/products */
 router.get("/", productController.getProducts);
 
-
 /* GET /api/products/:id */
-router.get("/:id",productController.getProductBYId)
+router.get("/:id", productController.getProductBYId);
 
-
+/* PATCH /api/products/:id */
+router.patch(
+  "/:id",
+  createAuthMiddleware(["seller"]),
+  productController.updateProduct
+);
 
 module.exports = router;
