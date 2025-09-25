@@ -22,9 +22,6 @@ router.post(
 /* GET /api/products */
 router.get("/", productController.getProducts);
 
-/* GET /api/products/:id */
-router.get("/:id", productController.getProductBYId);
-
 /* PATCH /api/products/:id */
 router.patch(
   "/:id",
@@ -38,5 +35,15 @@ router.delete(
   createAuthMiddleware(["seller"]),
   productController.deleteProduct
 );
+
+/* GET /api/products/seller */
+router.get(
+  "/seller",
+  createAuthMiddleware(["seller"]),
+  productController.getProductsBySeller
+);
+
+/* GET /api/products/:id */
+router.get("/:id", productController.getProductBYId);
 
 module.exports = router;

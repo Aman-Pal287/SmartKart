@@ -154,10 +154,24 @@ async function deleteProduct(req, res) {
   return res.status(200).json({ message: "Product deleted" });
 }
 
+async function getProductsBySeller(req, res) {
+  const seller = req.user;
+
+  const { skip = 0, limit = 20 } = req.query;
+
+  const products = await productModel
+    .find({ seller: seller.id })
+    .skip(Number(skip))
+    .limit(Math.min(Number(limit), 20));
+
+  return res.status(200).json({ data: products });
+}
+
 module.exports = {
   createProduct,
   getProducts,
   getProductBYId,
   updateProduct,
   deleteProduct,
+  getProductsBySeller,
 };
