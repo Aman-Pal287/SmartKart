@@ -32,10 +32,6 @@ router.delete(
 );
 
 /* DELETE /api/cart */
-router.delete(
-  "/",
-  createAuthMiddleware(["user"]),
-  cartController.clearCart
-);
+router.delete("/", createAuthMiddleware(["user"]), cartController.clearCart);
 
 module.exports = router;
