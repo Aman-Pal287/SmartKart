@@ -15,4 +15,12 @@ router.post(
   cartController.addItemToCart
 );
 
+/* PATCH /api/cart/items/:productId */
+router.post(
+  "/items/:productId",
+  validation.validateUpdateCartItem,
+  createAuthMiddleware(["user"]),
+  cartController.updateItemQuantity
+);
+
 module.exports = router;
