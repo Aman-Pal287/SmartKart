@@ -8,5 +8,5 @@ PORT = process.env.PORT || 3001;
 connectDB();
 
 app.listen(PORT, () => {
-  console.log(`Server is working on port ${PORT}`);
+  console.log(`Product service is running on port ${PORT}`);
 });

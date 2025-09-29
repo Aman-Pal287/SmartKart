@@ -6,5 +6,5 @@ const connectDB = require("./src/db/db");
 connectDB();
 
 app.listen(PORT, () => {
-  console.log(`server is running on port ${PORT}`);
+  console.log(`Auth service is running on port ${PORT}`);
 });

@@ -86,6 +86,13 @@ const addUserAddressValidations = [
     .withMessage("pincode must be a string")
     .notEmpty()
     .withMessage("pincode is required"),
+  body("phone")
+    .optional()
+    .isString()
+    .withMessage("Phone must be a string")
+    .bail()
+    .matches(/^\d{10}$/)
+    .withMessage("Phone must be a valid 10-digit number"),
   body("isDefault")
     .optional()
     .isBoolean()
