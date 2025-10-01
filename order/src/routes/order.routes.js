@@ -13,4 +13,7 @@ router.post(
   orderController.createOrder
 );
 
+/* GET /api/orders/me */
+router.get("/me", createAuthMiddleware(["user"]), orderController.getMyOrders);
+
 module.exports = router;
