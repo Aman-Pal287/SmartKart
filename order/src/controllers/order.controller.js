@@ -167,9 +167,52 @@ async function cancelOrderById(req, res) {
   }
 }
 
+async function updateOrderAddress(req, res) {
+  const user = req.user;
+  const orderId = req.params.id;
+
+  try {
+    const order = await orderModel.findById(orderId);
+
+    if (!order) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+
+    if (order.user.toString() !== user.id) {
+      return res
+        .status(403)
+        .json({ message: "Forbidden: You do not have access to this order" });
+    }
+
+    // only PENDING orders can have address updated
+    if (order.status !== "PENDING") {
+      return res
+        .status(409)
+        .json({ message: "Order address cannot be updated at this stage" });
+    }
+
+    order.shippingAddress = {
+      street: req.body.shippingAddress.street,
+      city: req.body.shippingAddress.city,
+      state: req.body.shippingAddress.state,
+      pincode: req.body.shippingAddress.pincode,
+      country: req.body.shippingAddress.country,
+    };
+
+    await order.save();
+
+    res.status(200).json({ order });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: "Interval server error", error: error.message });
+  }
+}
+
 module.exports = {
   createOrder,
   getMyOrders,
   getOrderById,
   cancelOrderById,
+  updateOrderAddress,
 };

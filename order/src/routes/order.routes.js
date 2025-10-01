@@ -23,6 +23,14 @@ router.post(
   orderController.cancelOrderById
 );
 
+/* PATCH /api/orders/:id/address */
+router.patch(
+  "/:id/address",
+  createAuthMiddleware(["user"]),
+  validation.updateAddressValidation,
+  orderController.updateOrderAddress
+);
+
 /* GET /api/orders/:id */
 router.get(
   "/:id",
