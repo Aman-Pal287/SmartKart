@@ -16,4 +16,9 @@ router.post(
 /* GET /api/orders/me */
 router.get("/me", createAuthMiddleware(["user"]), orderController.getMyOrders);
 
+
+/* GET /api/orders/:id */ 
+router.get("/:id" , createAuthMiddleware(["user" , "admin"]) , orderController.getOrderById)
+
+
 module.exports = router;
