@@ -123,7 +123,7 @@ async function getOrderById(req, res) {
         .json({ message: "Forbidden: You dont have access" });
     }
 
-    req.status(200).json({ order });
+    res.status(200).json({ order });
   } catch (error) {
     res
       .status(500)
