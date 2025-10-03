@@ -1,4 +1,5 @@
 const nodemailer = require("nodemailer");
+const logger = require("./utils/logger");
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -14,9 +15,9 @@ const transporter = nodemailer.createTransport({
 // Verify the connection configuration
 transporter.verify((error, success) => {
   if (error) {
-    console.error("Error connecting to email server:", error);
+    logger.error("Error connecting to email server:", error);
   } else {
-    console.log("Email server is ready to send messages");
+    logger.info("Email server is ready to send messages");
   }
 });
 
@@ -31,18 +32,11 @@ const sendEmail = async (to, subject, text, html) => {
       html, // html body
     });
 
-    console.log("Message sent: %s", info.messageId);
-    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+    // console.log("Message sent: %s", info.messageId);
+    // console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
   } catch (error) {
     console.error("Error sending email:", error);
   }
 };
 
-sendEmail(
-  "palaman9377@gmail.com",
-  "Test Subject",
-  "This is a test email",
-  "<b>This is the test HTML</b>"
-);
-
-module.exports = sendEmail;
+module.exports = { sendEmail };
