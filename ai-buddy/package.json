@@ -12,6 +12,9 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@langchain/core": "^0.3.78",
+    "@langchain/google-genai": "^0.2.18",
+    "@langchain/langgraph": "^0.4.9",
     "axios": "^1.12.2",
     "cookie": "^1.0.2",
     "dotenv": "^17.2.3",
@@ -19,6 +22,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.18.3",
     "socket.io": "^4.8.1",
-    "winston": "^3.18.3"
+    "winston": "^3.18.3",
+    "zod": "^3.25.76"
   }
 }
