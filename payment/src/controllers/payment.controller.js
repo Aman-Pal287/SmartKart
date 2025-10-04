@@ -1,6 +1,7 @@
 const logger = require("../utils/logger");
 const paymentModel = require("../models/payment.model");
 const axios = require("axios");
+const { publishToQueue } = require("../broker/broker.js");
 
 const Razorpay = require("razorpay");
 
@@ -65,18 +66,14 @@ async function verifyPayment(req, res) {
       secret
     );
 
-    if (!isValid) {
-      return res.status(400).json({ message: "Invalid signature" });
-    }
+    if (!isValid) return res.status(400).json({ message: "Invalid signature" });
 
     const payment = await paymentModel.findOne({
       razorpayOrderId,
       status: "PENDING",
     });
 
-    if (!payment) {
-      return res.status(404).json({ message: "Payment not found" });
-    }
+    if (!payment) return res.status(404).json({ message: "Payment not found" });
 
     payment.paymentId = paymentId;
     payment.signature = signature;
@@ -84,9 +81,25 @@ async function verifyPayment(req, res) {
 
     await payment.save();
 
+    await publishToQueue("PAYMENT_NOTIFICATION.PAYMENT_COMPLETED", {
+      email: req.user.email,
+      orderId: payment.order,
+      paymentId: payment.paymentId,
+      amount: payment.price.amount / 100,
+      currency: payment.price.currency,
+    });
+
     res.status(200).json({ message: "Payment verified successfully", payment });
   } catch (error) {
     logger.error(error);
+
+    await publishToQueue("PAYMENT_NOTIFICATION.PAYMENT_FAILED", {
+      email: req.user.email,
+      paymentId: paymentId,
+      orderId: razorpayOrderId,
+      username: req.user.username,
+    });
+
     return res.status(500).json({ message: "Internal server error" });
   }
 }
