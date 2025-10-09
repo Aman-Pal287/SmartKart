@@ -20,19 +20,11 @@ SmartKart is a scalable and modular e-commerce platform built using a microservi
 - **CI/CD**: GitHub Actions
 - **Other Tools**: Swagger (API documentation), Postman (API testing)
 
-## 🚀 Getting Started
 
-### Prerequisites
-
-- Node.js (v14 or above)
-- Docker
-- Kubernetes (minikube or Docker Desktop)
-- Git
-
-### Installation Steps
 
 1. Clone the repository:
 
    ```bash
    git clone https://github.com/Aman-Pal287/SmartKart.git
    cd SmartKart
+
