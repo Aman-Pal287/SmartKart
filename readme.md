@@ -22,9 +22,6 @@ SmartKart is a scalable and modular e-commerce platform built using a microservi
 
 
 
-1. Clone the repository:
 
-   ```bash
-   git clone https://github.com/Aman-Pal287/SmartKart.git
-   cd SmartKart
+
 
