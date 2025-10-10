@@ -18,6 +18,24 @@ module.exports = function () {
     );
   });
 
+  subscribeToQueue("PAYMENT_NOTIFICATION.PAYMENT_INITIATED", async (data) => {
+    const emailHTMLTemplate = `
+      <h1>Payment Initiated</h1>
+      <p>Dear ${data.username},</p>
+      <p>Your payment of ${data.currency} ${data.amount} has been successfully processed.</p>
+      <p>Order ID: ${data.orderId}</p>
+      <p>We will notify once the payment is completed.</p>
+      <p>Best regards, </br> The Team</p>
+    `;
+
+    await sendEmail(
+      data.email,
+      "Payment Initiated",
+      "Your payment is beign in process.",
+      emailHTMLTemplate
+    );
+  });
+
   subscribeToQueue("PAYMENT_NOTIFICATION.PAYMENT_COMPLETED", async (data) => {
     const emailHTMLTemplate = `
       <h1>Payment Successful!</h1>
@@ -51,6 +69,22 @@ module.exports = function () {
       data.email,
       "Payment Failed",
       "Your payment was unsuccessful.",
+      emailHTMLTemplate
+    );
+  });
+
+  subscribeToQueue("PRODUCT_NOTIFICATION.PRODUCT_CREATED", async (data) => {
+    const emailHTMLTemplate = `
+      <h1>New Product Available</h1>
+      <p>Dear ${data.username},</p>
+      <p>Check it out and enjoy exclusive launch offers!</p>
+      <p>Best regards, </br> The Team</p>
+    `;
+
+    await sendEmail(
+      data.email,
+      "New Product Launch",
+      "Check out our new launch Product .",
       emailHTMLTemplate
     );
   });
