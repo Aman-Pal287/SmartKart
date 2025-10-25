@@ -6,7 +6,8 @@
     "test": "jest --runInBand --detectOpenHandles --testTimeout=30000",
     "test:addresses": "jest __tests__/auth.addresses.test.js --testTimeout=30000",
     "test:watch": "jest --watch --runInBand --testTimeout=30000",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "start":"node server.js"
   },
   "keywords": [],
   "author": "",
