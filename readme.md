@@ -4,15 +4,7 @@ Welcome to the API documentation for SmartKart, a modern, scalable e-commerce pl
 
 This document is tailored for the frontend development team to ensure seamless integration and understanding of the exposed APIs.
 
-<<<<<<< HEAD
-- **Modular Microservices**: Separate services like `auth`, `cart`, `order`, `payment`, `product`, `notification`, and `seller-dashboard` ,`ai-buddy` .
-- **RESTful APIs**: Each service exposes its own REST APIs.
-- **Scalable Architecture**: Services are containerized using Docker and orchestrated with Kubernetes.
-- **CI/CD Pipeline**: Automated build and deployment using GitHub Actions.
-- **Authentication & Authorization**: JWT-based authentication and role-based access control.
-=======
 ## 📦 Project Overview (Microservices Architecture)
->>>>>>> 3e1b097fcd98ddb2fed8dde65f6d5e6ba7f22f9c
 
 SmartKart is built using 8 modular microservices, communicating primarily via **REST APIs** for synchronous requests and a **Message Broker (RabbitMQ)** for asynchronous communication (notifications, data synchronization).
 
