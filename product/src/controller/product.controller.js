@@ -78,7 +78,7 @@ async function getProducts(req, res) {
   const products = await productModel
     .find(filter)
     .skip(Number(skip))
-    .limit(Math.min(Number(limit)), 20);
+    .limit(Math.min(Number(limit), 20));
 
   return res.status(200).json({ data: products });
 }
@@ -154,7 +154,7 @@ async function deleteProduct(req, res) {
     return res.status(404).json({ message: "Product not found" });
   }
 
-  if (product.sellet.toString() !== req.user.id) {
+  if (product.seller.toString() !== req.user.id) {
     return res
       .status(403)
       .json({ message: "Forbidden:You can onlt delete your own products" });
